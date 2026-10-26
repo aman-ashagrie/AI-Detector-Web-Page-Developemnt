@@ -230,7 +230,7 @@ body {
 /*About Page Photo Grid*/
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
 }
@@ -244,9 +244,9 @@ body {
 /* Headshot photos box */
 .image-1 {
   width: 100%;
-  aspect-ratio: 5 / 6; /* Keeps a consistent box shape */
-  background-color: #e3d9bc; /* Light olive/beige matching your header */
-  border: 3px solid #4a4a1c; /* Dark olive border */
+  aspect-ratio: 5 / 6;
+  background-color: #e3d9bc;
+  border: 3px solid #4a4a1c;
   border-radius: 12px;
   box-shadow: var(--shadow);
 }
