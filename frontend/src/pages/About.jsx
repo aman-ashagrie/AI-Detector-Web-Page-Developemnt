@@ -4,7 +4,9 @@ import photo1 from '../assets/lloyd-headshot.png.jpg';
 export default function About() {
   return (
     <div className="page-container">
-        <div className="content-box">
+      <title>About</title>
+
+      <div className="content-box">
         <h2>Meet The Team</h2>
         </div>
       <div className="image-grid">

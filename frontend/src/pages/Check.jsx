@@ -3,6 +3,8 @@ import imagearrow from '../assets/arrow.png';
 export default function Check() {
   return (
     <div className="page-container">
+      <title>Check</title>
+
       <div className="check-input-area">
         <div className="textbox-wrapper">
           <textarea 
