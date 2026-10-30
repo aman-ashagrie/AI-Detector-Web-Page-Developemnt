@@ -1,3 +1,5 @@
+import imagearrow from '../assets/arrow.png';
+
 export default function Check() {
   return (
     <div className="page-container">
@@ -9,8 +11,16 @@ export default function Check() {
             aria-label="Enter text for AI detection"
           ></textarea>
         </div>
-        <div className="button-wrapper">
-          <button className="submit-btn">Submit</button>
+        <div className="check-centre">
+          <div className="results-percent">
+            <p>XX%</p>
+          </div>
+          <div id="image-arrow">
+            <img src={imagearrow} alt="" />
+          </div>
+          <div className="button-wrapper">
+            <button className="submit-btn">Submit</button>
+          </div>
         </div>
         <div className="textbox-wrapper">
           <textarea
@@ -21,6 +31,9 @@ export default function Check() {
         </div>
       </div>
       <div className="content-box">
+        <h3>Scale</h3>
+        <div className="scale-gradient"></div>
+        <hr />
         <h2>Is It AI? - AI Detection Program</h2>
         <p>In the current ever changing digital environment, there is an expanding usage of advanced generative AI models that are being used to replicate human written texts for various reasons. These models can now write text that can often be very hard to differentiate from real texts written by real people. This nuance is making it difficult for anyone to trust any block of text written, as the possibility of AI being present is becoming increasingly likely. 
         Various jobs across different divisions take these AI written texts as unreliable and a form of plagiarism, possibly due to lack of regulatory practices used to gather data for them. For these people, they need some way to have an informed decision on which texts they can trust as genuine and made by human creation.
