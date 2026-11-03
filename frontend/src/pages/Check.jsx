@@ -70,11 +70,11 @@ const getSentenceColour = (sentenceScore) => {
             <div className="textbox-wrapper">
               <div className="main-textbox">
                 {loading && (
-                  <p>analysing...</p>
+                  <p className="output-placeholder">analysing...</p>
                 )}
 
                 {!loading && (!analysedSentences || analysedSentences.length === 0) && (
-                  <p>Click submit to see your detection results.</p>
+                  <p className="output-placeholder">Click submit to see your detection results.</p>
 
                 )}
 

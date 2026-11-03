@@ -185,7 +185,7 @@ body {
   box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
-.main-textbox::placeholder {
+.main-textbox::placeholder, .output-placeholder {
   color: #888;
   font-family: var(--heading);
   font-size: 1.3rem;
