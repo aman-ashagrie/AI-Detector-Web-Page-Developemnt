@@ -4,12 +4,12 @@ import logoImg from '../assets/IIA.png'
 export default function Footer() {
     return (
         <footer>
-            <div class="site-footer">
-                <img src={logoImg} class="footer-logo" alt="" />
+            <div className="site-footer">
+                <img src={logoImg} className="footer-logo" alt="" />
                 <h2>Is it AI</h2>
             </div>
-            <div class="footer-content">
-                <div class="footer-column">
+            <div className="footer-content">
+                <div className="footer-column">
                     <div>
                         <h3>Contact Us</h3>
                         <hr />
@@ -21,7 +21,7 @@ export default function Footer() {
                         <p>1800 000 000</p>
                     </div>
                 </div>
-                <div class="footer-column">
+                <div className="footer-column">
                     <h3>Pages</h3>
                     <hr />
                     <Link to="/" alt="Check Page" hover="Check">Check</Link>
