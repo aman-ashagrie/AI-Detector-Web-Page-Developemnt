@@ -191,6 +191,13 @@ body {
   font-size: 1.3rem;
 }
 
+.main-textbox p {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
 .button-wrapper {
   flex: 3; 
   display: flex;
