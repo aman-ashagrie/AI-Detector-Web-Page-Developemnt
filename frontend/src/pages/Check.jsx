@@ -5,29 +5,36 @@ import axios from 'axios';
 export default function Check() {
   const [inputText, setInputText] = useState('');
   const [score, setScore] = useState(null);
-  const [outputText, setOutputText] = useState('');
+  const [analysedSentences, setAnalysedSentences] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setScore(null);
-    setOutputText('');
+    setAnalysedSentences([]);
+    setLoading(true);
 
     try {
       const response = await axios.post('http://localhost:8000/api/analyse/', {
         text: inputText
       });
       setScore(response.data.score);
+      setAnalysedSentences(response.data.sentences);
       
     } catch(err) {
       setError('error submitting text.');
     } finally {
-      
+      setLoading(false);
     }
-
   };
 
+const getSentenceColour = (sentenceScore) => {
+      if (sentenceScore >= 66) return '#ffcccc';
+      if (sentenceScore < 66 && sentenceScore >= 33) return '#fff2cc';
+      return '#d4edda';
+    }
 
   return (
     <div className="page-container">
@@ -51,7 +58,7 @@ export default function Check() {
             </div>
             <div className="check-centre">
               <div className="results-percent">
-                <p>{score !== null ? `${score}%` : 'XX%'}</p>
+                <p>{loading ? '...' : score !== null ? `${score}%` : 'XX.XX%'}</p>
               </div>
               <div id="image-arrow">
                 <img src={imagearrow} alt="" />
@@ -62,8 +69,26 @@ export default function Check() {
             </div>
             <div className="textbox-wrapper">
               <div className="main-textbox">
-                <p>Click submit to see your detection results.</p>
-                <span></span>
+                {loading && (
+                  <p>analysing...</p>
+                )}
+
+                {!loading && (!analysedSentences || analysedSentences.length === 0) && (
+                  <p>Click submit to see your detection results.</p>
+
+                )}
+
+                {!loading && analysedSentences.map((item, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      backgroundColor: getSentenceColour(item.score)
+                    }}
+                    title={`AI likelihood score: ${item.score}%`}
+                  >
+                    {item.text}{' '}
+                  </span>
+                ))}
               </div>
             </div>
         </div>
@@ -72,7 +97,7 @@ export default function Check() {
       {error && <p>{error}</p>}
 
       <div className="content-box">
-        <h3>Scale</h3>
+        <h2 id="scale-subtitle">Scale</h2>
         <div className="scale-gradient"></div>
         <hr />
         <h2>Is It AI? - AI Detection Program</h2>
