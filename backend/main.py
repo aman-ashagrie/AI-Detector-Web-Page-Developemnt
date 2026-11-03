@@ -4,6 +4,7 @@ import unicodedata
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
@@ -61,6 +62,14 @@ def split_sentences(text):
 
 app = FastAPI(title="Is It AI?", lifespan=lifespan)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class AnalyzeRequest(BaseModel):
     text: str
 
@@ -73,7 +82,7 @@ def health_check():
     }
 
 #Analysis
-@app.post("/api/analyze")
+@app.post("/api/analyse/")
 def analyze_text(request: AnalyzeRequest):
 
     sentences = split_sentences(request.text)
@@ -87,6 +96,8 @@ def analyze_text(request: AnalyzeRequest):
 
     return {"score": round(final_score, 2)}
 
-
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
