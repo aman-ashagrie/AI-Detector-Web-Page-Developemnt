@@ -94,7 +94,18 @@ def analyze_text(request: AnalyzeRequest):
     p_avg = (p_lr + p_nb) / 2
     final_score = float(p_avg.mean()) * 100
 
-    return {"score": round(final_score, 2)}
+    sentence_analysis = []
+    for idx, sentence in enumerate(sentences):
+        sentence_score = float(p_avg[idx]) * 100
+        sentence_analysis.append({
+            "text": sentence,
+            "score": round(sentence_score, 2)
+        })
+
+    return {
+        "score": round(final_score, 2),
+        "sentences": sentence_analysis    
+    }
 
 if __name__ == "__main__":
     import uvicorn
