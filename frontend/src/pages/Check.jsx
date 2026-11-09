@@ -61,6 +61,7 @@ const getSentenceColour = (sentenceScore) => {
             <div className="check-centre">
               <div className="results-percent">
                 <p>{loading ? '...' : score !== null ? `${score}%` : 'XX.XX%'}</p>
+                <p className="results-subtext">chance of AI use</p>
               </div>
               <div id="image-arrow">
                 <img src={imagearrow} alt="" />
@@ -101,6 +102,10 @@ const getSentenceColour = (sentenceScore) => {
       <div className="content-box">
         <h2 id="scale-subtitle">Scale</h2>
         <div className="scale-gradient"></div>
+        <div className="scale-legend">
+          <span>AI</span>
+          <span>Human</span>
+        </div>
         <hr />
         <h2>Is It AI? - AI Detection Program</h2>
         <p>In the current ever changing digital environment, there is an expanding usage of advanced generative AI models that are being used to replicate human written texts for various reasons. These models can now write text that can often be very hard to differentiate from real texts written by real people. This nuance is making it difficult for anyone to trust any block of text written, as the possibility of AI being present is becoming increasingly likely. 

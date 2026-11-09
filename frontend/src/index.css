@@ -308,7 +308,7 @@ body {
   grid-template-columns: 1fr;
 }
 .results-percent {
-  margin: 5px;
+  margin: 1px;
   font-family: var(--mono);
   color: #4a4a1c;
   background-color: #f9f8f3;
@@ -317,6 +317,10 @@ body {
   resize: vertical;
   text-align: center;
   font-size: 2rem;
+}
+.results-subtext {
+  font-family: var(--heading);
+  font-size: 1rem;
 }
 #image-arrow img {
   height: 4rem;
@@ -332,6 +336,17 @@ body {
   text-align: center;
   box-shadow: var(--shadow);
   font-family: var(--heading);
+}
+
+.scale-legend {
+  display: flex;
+  justify-content: space-between;
+}
+.scale-legend span {
+  font-size: 1.5rem;
+  color: #f8f3e0;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Footer styling */
