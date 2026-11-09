@@ -24,7 +24,8 @@ export default function Check() {
       setAnalysedSentences(response.data.sentences);
       
     } catch(err) {
-      setError('error submitting text.');
+      const message = err.response?.data?.error?.message;
+      setError(message || 'Could not reach the server. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -51,6 +52,7 @@ const getSentenceColour = (sentenceScore) => {
                 id="inputText"
                 name="inputText"
 
+                maxLength={10000}
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 required
