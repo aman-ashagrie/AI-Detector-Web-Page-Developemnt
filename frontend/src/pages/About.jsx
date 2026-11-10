@@ -1,4 +1,5 @@
-import photo1 from '../assets/lloyd-headshot.png.jpg';
+import lloydPhoto from '../assets/lloyd-headshot.png.jpg';
+import AmanPhoto from '../assets/Aman-headshot.jpeg';
 
 
 export default function About() {
@@ -12,7 +13,7 @@ export default function About() {
       <div className="image-grid">
         
         <div className="image-card">
-          <div className="image-1"></div>
+          <img src={AmanPhoto} alt="Amanuial Ashagrie" className="image-1" />
           <div className="mini-text-box">
             <h3>Amanuial Ashagrie</h3>
             <p>Hi, my name is Aman, and I am a Bachelor of Computer Science student, Majoring in AI. This is my first AI unit, and only recently found out that this is a third-year course, but I decided to take on the challenge and give myself the environment to rapidly grow. Even though my experience leans more on Software development and less experience in AI. Through this course, I intend to kickstart my AI skillset and develop hands on experience in AI models and working with a team to create a working agentic model. In my spare time, I like to play tennis and play my drum set. I also enjoy social gatherings and connecting with people with different backgrounds.</p>
@@ -27,7 +28,7 @@ export default function About() {
           </div>
         </div>
         <div className="image-card">
-          <img src={photo1} alt="Lloyd Cook-Rowe" className="image-1" />
+          <img src={lloydPhoto} alt="Lloyd Cook-Rowe" className="image-1" />
           <div className="mini-text-box">
             <h3>Lloyd Cook-Rowe</h3>
             <p>My name is Lloyd and I will be leading the data preprocessing, scoring logic, model integration and UI construction of the AI text detection webpage project. I am completing this project with my group as a part of my Bachelor of Computer Science to further my understanding of AI, python and web-based application production. When I have time outside of my full-time job and university schedule, I enjoy gaming, connecting with friends and playing tennis as well as basketball. I strive for good results and hope that our team can come together and collaborate to create an outstanding application that is practical, attractive and secure.</p>
