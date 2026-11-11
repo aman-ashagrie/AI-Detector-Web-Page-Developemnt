@@ -2,14 +2,16 @@
 Session 4, Group 4: Amanuial Ashagrie, Lloyd Cook-Rowe, Nathan Alexander Vuong
 
 This project is a web application that estimates the likelihood of any given piece of text being AI-Generated and provides the user with a percentage estimate that the content is AI. Each sentence is highlighted a different coloured based on the programs estimation of the AI usage for that sentence.
- The machine learning models used to make the predictions were trained on our Assignment 2 from the DAIGT kaggle datasets (https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset).
+ The machine learning models used to make the predictions were trained on our Assignment 2 from the DAIGT kaggle datasets (Kłeczek, 2023, https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset).
 
 
 ## Setup and Run Instructions
 To run the full website you will need two terminals, one for the front end and one for the backend.
 ### 1. Prerequisites
 Python 3.12 or newer,
-Node.js 22 or newer,
+
+Node.js 22.12 or newer,
+
 recent Git version
 
 ### 2. Setup Environment
@@ -21,12 +23,17 @@ cd AI-Detector-Web-Page-Developemnt
 To install the required libraries, use the below code block:
 ```bash
 cd backend
-python --version
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
-Once that has successfully run, and your terminal line has (venv) at the start, you can startup the server.
+Once that has successfully run, and your terminal line has (venv) at the start, you can startup the frontend server.
+
+If you want to test the health of the site, you can access it at:
+- http://127.0.0.1:8000/api/health
+To view the API documentation use the link:
+- http://127.0.0.1:8000/docs
+
 
 ### 3. Launching Backend and Frontend
 You will already be inside the backend folder so simply type:
@@ -70,10 +77,11 @@ These files ensure the package versioned is locked and installed on startup.
 | react-chartjs-2 | ^5.3.1 |
 | vite (dev) | ^8.3.0 |
 
-### Threat Model
+## Threat Model
 
 **AMAN to COMPLETE*
 
-### References
-Darek Kłeczek DAIGT training model (Kaggle) [https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset] (Accessed 5/08/2026)
+## References
+Kłeczek, D. (2023) DAIGT V3 train dataset. Kaggle. Available at: [https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset] (Accessed 5/08/2026)
+
 
