@@ -11,7 +11,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 logger = logging.getLogger("is-it-ai")
@@ -191,13 +191,48 @@ class SentenceScore(BaseModel):
 
 
 class AnalyzeResponse(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "score": 72.4,
+                    "sentences": [
+                        {"text": "Intelligent systems are becoming more fluent.", "score": 81.0},
+                        {"text": "I walked to the shops after lunch.", "score": 63.8},
+                    ],
+                }
+            ]
+        }
+    )
+
     score: float = Field(description="Overall AI likelihood, 0 to 100.")
     sentences: list[SentenceScore]
 
 
 class HealthResponse(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={"examples": [{"status": "ok", "models_loaded": True}]}
+    )
+
     status: str
     models_loaded: bool
+
+
+class ErrorBody(BaseModel):
+    code: int = Field(description="The HTTP status code.")
+    message: str = Field(description="A short, safe description of what went wrong.")
+
+
+class ErrorResponse(BaseModel):
+    error: ErrorBody
+
+
+def error_doc(code, description, message):
+    return {
+        "model": ErrorResponse,
+        "description": description,
+        "content": {"application/json": {"example": {"error": {"code": code, "message": message}}}},
+    }
 
 
 # Endpoints
@@ -212,12 +247,18 @@ def health_check():
     response_model=AnalyzeResponse,
     summary="Score text for AI likelihood",
     responses={
-        400: {"description": "No readable sentences in the text"},
-        413: {"description": "Request body too large"},
-        422: {"description": "Text too short or too long"},
-        503: {"description": "Server busy, try again shortly"},
+        400: error_doc(400, "No readable sentences in the text", "No readable sentences found."),
+        411: error_doc(411, "Missing Content-Length header", "Content-Length header required."),
+        413: error_doc(413, "Request body larger than 128,000 bytes", "Request body too large."),
+        422: error_doc(
+            422,
+            "Text missing, shorter than 20 or longer than 10,000 characters",
+            "text: String should have at least 20 characters",
+        ),
+        503: error_doc(503, "All analysis slots are busy; try again shortly", "Server busy, please try again shortly."),
     },
 )
+
 def analyze_text(request: AnalyzeRequest):
     if DOS_DEFENCES and not analysis_slots.acquire(blocking=False):
         raise HTTPException(status_code=503, detail="Server busy, please try again shortly.")

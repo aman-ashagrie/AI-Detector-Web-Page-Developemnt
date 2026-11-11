@@ -31,6 +31,7 @@ Once that has successfully run, and your terminal line has (venv) at the start, 
 
 If you want to test the health of the site, you can access it at:
 - http://127.0.0.1:8000/api/health
+
 To view the API documentation use the link:
 - http://127.0.0.1:8000/docs
 
@@ -52,6 +53,24 @@ npm run dev
 ```
 Open http://localhost:5173. Paste at least 20 characters of text and press Submit to test that both the backend and frontend are responsive. The overall AI likelihood and per-sentence highlighting should appear with no error messages.
 
+## Architecture diagram
+
+![Architecture diagram](docs/architecture.png)
+
+**How a request flows.** The user pastes text into the Check page and presses Submit. The React front end sends it to the FastAPI back end as a POST request to `/api/analyse/`. The back end runs its security checks, validates the text length, splits the text into sentences and scores each one with the saved models. It then sends the overall score and the score for each sentence back to the frontend page, which displays them visually to the user.
+
+**Where validation and errors are handled.** The front end limits the text to 10,000 characters.
+The back end enforces its own limits, because attackers skip the interface: the middleware rejects
+oversized bodies, Pydantic rejects invalid text, and the concurrency slot rejects excess load. Every
+error, including unexpected ones, leaves the back end as `{"error": {"code": ..., "message": ...}}`
+with no stack trace.
+
+**The model.** This is the Assignment 2 model. Text is cleaned (Unicode normalisation, URLs, e-mail
+addresses, HTML tags and control characters removed) and split into sentences. Each sentence is
+scored by logistic regression and multinomial Naive Bayes on TF-IDF features, and the two
+probabilities are averaged. The overall score is the mean of the sentence scores (0 = human,
+100 = AI).
+
 ## Pinned Dependencies
 Backend:
 | Dependency | Version |
@@ -67,6 +86,7 @@ Backend:
 | requests | 2.34.2 |
 
 Frontend: (frontend/package.json and frontend/package-lock.json)
+
 These files ensure the package versioned is locked and installed on startup.
 | Dependency | Version |
 |---|---|
