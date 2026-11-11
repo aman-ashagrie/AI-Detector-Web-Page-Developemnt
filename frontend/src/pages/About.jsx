@@ -38,7 +38,7 @@ export default function About() {
       </div>
       <div className="content-box">
         <h2>About Us</h2>
-        <p>We are dedicated to providing accurate AI detection tools. This is the big sample text box in the middle of the About page.</p>
+        <p>We are dedicated to providing accurate AI detection tools using multiple machine learning models with vigorous training to ensure the best accuracy. </p>
       </div>
 
     </div>
