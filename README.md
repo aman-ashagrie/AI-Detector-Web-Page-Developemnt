@@ -110,6 +110,29 @@ To make the detector unavailable or slow for real users, to find out how it make
 **What can they actually do?**
 Attackers don't use our interface. They can send requests straight to the API with curl or scripts, so any front-end check can be bypassed. They can send very large text, text crafted to make our cleaning code slow, or hundreds of requests at once. They can also scan the server for missing security headers, leaked versions and vulnerable dependencies.
 
+## Security defences to be marked
+
+**Defence 1: Denial of service (Advanced)**
+**Defence 2: Misconfiguration and vulnerable dependencies (Intermediate)**
+
+### Denial of service
+
+**The attack.** `clean_text()` from Assignment 2 removed script blocks with `re.sub(r"<(script|style)\b[^>]*>.*?</\1>", ...)`. If the input contains `<script>` many times with no closing tag, the regex scans to the end of the text from every opening tag, so the work grows with the square of the input length (ReDoS). Python's `re` module holds the GIL for the whole call, so one malicious request freezes the entire server, not just one thread.
+
+
+The defence works in layers, each stopping a different variation of the attack. Text over 10,000 characters is rejected with a 422 by the Pydantic model (AnalyzeRequest). The limit_body_size middleware rejects bodies over 128 KB from the header before they are read (413), and requests with no Content-Length (411). Crafted text under the cap is handled by strip_blocks(), which replaces the slow regex with a linear-time loop, and by bounding the email regex to a 64-character local part (RFC 5321). Finally, analysis_slots (a BoundedSemaphore) lets only 4 analyses run at once and gives the rest an instant 503.
+
+
+### Misconfiguration and vulnerable dependencies
+
+The defence (backend/main.py): The security_headers middleware adds nosniff, X-Frame-Options: DENY, no-referrer, no-store and a strict Content-Security-Policy to every response. Because it is registered last, it also covers CORS preflight replies and unexpected crashes. All errors use one JSON format with no stack traces or internal details (error_response and its three handlers). CORS only allows the front-end origin, GET/POST and the Content-Type header. The server refuses to start if a model file is missing. Running with --no-server-header on 127.0.0.1 hides the server software and keeps the API off the local network.
+
+### Security hygiene 
+- **User input is never rendered as HTML:** sentences are shown as `<span>{item.text}</span>`, never with `dangerouslySetInnerHTML`.
+- **Size limit enforced on the back end:** 10,000 characters and 128 KB per request (also `maxLength` on the textarea, for usability only).
+- **CORS:** exact front-end origins only.
+- **Secrets:** none required, and none are in the repository. `.env` is listed in `.gitignore`.
+
 
 ## References
 Kłeczek, D. (2023) DAIGT V3 train dataset. Kaggle. Available at: [https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset] (Accessed 5/08/2026)
