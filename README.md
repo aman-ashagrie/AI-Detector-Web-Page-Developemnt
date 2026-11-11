@@ -1,20 +1,21 @@
-# AI Detector Web Page Developemnt Project
+# AI Detector Web Page Development Project
 Session 4, Group 4: Amanuial Ashagrie, Lloyd Cook-Rowe, Nathan Alexander Vuong
 
-This project is a web application that estimates the likelihood of any given piece of text being AI-Generated sentence by sentence. The machine learning models used to make the predictions were trained on our Assignment 2 from the DAIGT kaggle datasets (https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset).
+This project is a web application that estimates the likelihood of any given piece of text being AI-Generated and provides the user with a percentage estimate that the content is AI. Each sentence is highlighted a different coloured based on the programs estimation of the AI usage for that sentence.
+ The machine learning models used to make the predictions were trained on our Assignment 2 from the DAIGT kaggle datasets (https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset).
 
 
 ## Setup and Run Instructions
 To run the full website you will need two terminals, one for the front end and one for the backend.
 ### 1. Prerequisites
-Python 3.12 or newer
-Node.js 22 or newer
-Git
+Python 3.12 or newer,
+Node.js 22 or newer,
+recent Git version
 
 ### 2. Setup Environment
 In a new terminal insert the below:
 ```bash
-git clone https://github.com/<owner>/AI-Detector-Web-Page-Developemnt.git
+git clone https://github.com/aman-ashagrie/AI-Detector-Web-Page-Developemnt.git
 cd AI-Detector-Web-Page-Developemnt
 ```
 To install the required libraries, use the below code block:
@@ -47,6 +48,7 @@ Open http://localhost:5173. Paste at least 20 characters of text and press Submi
 ## Pinned Dependencies
 Backend:
 | Dependency | Version |
+|---|---|
 | fastapi | 0.141.1 |
 | starlette | 1.6.0 |
 | pydantic | 2.13.4 |
@@ -60,6 +62,7 @@ Backend:
 Frontend: (frontend/package.json and frontend/package-lock.json)
 These files ensure the package versioned is locked and installed on startup.
 | Dependency | Version |
+|---|---|
 | react, react-dom | ^19.2.8 |
 | react-router-dom | ^7.18.4 |
 | axios	| ^1.21.0 |
