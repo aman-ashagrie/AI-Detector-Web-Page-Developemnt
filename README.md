@@ -7,6 +7,7 @@ This project is a web application that estimates the likelihood of any given pie
 
 ## Setup and Run Instructions
 To run the full website you will need two terminals, one for the front end and one for the backend.
+
 ### 1. Prerequisites
 Python 3.12 or newer,
 
@@ -109,7 +110,6 @@ To make the detector unavailable or slow for real users, to find out how it make
 **What can they actually do?**
 Attackers don't use our interface. They can send requests straight to the API with curl or scripts, so any front-end check can be bypassed. They can send very large text, text crafted to make our cleaning code slow, or hundreds of requests at once. They can also scan the server for missing security headers, leaked versions and vulnerable dependencies.
 
-**Which risks our design exposes:**
 
 ## References
 Kłeczek, D. (2023) DAIGT V3 train dataset. Kaggle. Available at: [https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset] (Accessed 5/08/2026)
