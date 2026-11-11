@@ -99,9 +99,22 @@ These files ensure the package versioned is locked and installed on startup.
 
 ## Threat Model
 
-**AMAN to COMPLETE*
+**Who would attack it?**
+1. A student, or a "humaniser" service, that wants AI-generated text to be judged human-written.
+2. Someone who wants to take the service down, so it can't be used to check their work.
+
+**What are they trying to achieve?**
+To make the detector unavailable or slow for real users, to find out how it makes decisions by probing it repeatedly, or to learn about our server from its error messages and headers.
+
+**What can they actually do?**
+Attackers don't use our interface. They can send requests straight to the API with curl or scripts, so any front-end check can be bypassed. They can send very large text, text crafted to make our cleaning code slow, or hundreds of requests at once. They can also scan the server for missing security headers, leaked versions and vulnerable dependencies.
+
+**Which risks our design exposes:**
 
 ## References
 Kłeczek, D. (2023) DAIGT V3 train dataset. Kaggle. Available at: [https://www.kaggle.com/datasets/thedrcat/daigt-v3-train-dataset] (Accessed 5/08/2026)
 
+GitHub (2026) *GHSA-g3hv-75wg-m249: minimatch has potential denial of service via globparts amplification*. Available at: https://github.com/advisories/GHSA-g3hv-75wg-m249 (Accessed: 9 November 2026).
+
+OWASP Foundation (2026) *Regular expression Denial of Service – ReDoS*. Available at: https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS (Accessed: 9 November 2026).
 
